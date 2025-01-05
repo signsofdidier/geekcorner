@@ -72,7 +72,7 @@
             <a id="userDropdown" aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown"
                href="#" role="button">
               <img alt="User" class="rounded-circle" height="30"
-                   loading="lazy" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg">
+                   loading="lazy" src="./assets/profilepic.jpg">
             </a>
             <ul aria-labelledby="userDropdown" class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#">My profile</a></li>
