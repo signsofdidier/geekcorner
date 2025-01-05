@@ -1,0 +1,40 @@
+name: Deploy Vue 3 App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Haal de code op uit de repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2. Installeer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # 3. Installeer dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build de applicatie
+      - name: Build application
+        run: npm run build
+
+      # 5. Upload naar de specifieke map op de FTP-server
+      - name: Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ftp.syntrawestcloudbe.webhosting.be
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /fullstack/didier/geekcorner/
+          sync: "true"
