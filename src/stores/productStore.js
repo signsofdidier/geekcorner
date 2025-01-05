@@ -8,6 +8,7 @@ export const useProductStore = defineStore('product', {
         cart: [],
         freeShippingPrice: 1000,
         favoriteProducts: JSON.parse(localStorage.getItem('favoriteProducts')) || [],
+        searchQuery: "", // Zoekterm toevoegen
     }),
     getters: {
       cartTotal: (state) => state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
@@ -22,6 +23,9 @@ export const useProductStore = defineStore('product', {
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
+        },
+        updateSearchQuery(query) {
+            this.searchQuery = query;
         },
 
         addToCart(product){
@@ -60,7 +64,6 @@ export const useProductStore = defineStore('product', {
             // Sla favorieten op in localStorage
             localStorage.setItem('favoriteProducts', JSON.stringify(this.favoriteProducts));
         },
-
 
     }
 })
