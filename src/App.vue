@@ -1,3 +1,4 @@
+<!--App.vue-->
 <template>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
@@ -17,7 +18,7 @@
       <!-- Collapsible Navbar Content -->
       <div id="navbarNav" class="collapse navbar-collapse">
         <form class="d-flex d-md-flex input-group mx-auto w-50 mb-3 mb-lg-0">
-          <input aria-label="Search" class="form-control rounded-start" placeholder="Search" type="search">
+          <input v-model="searchQuery" @input="updateSearch" aria-label="Search" class="form-control rounded-start" placeholder="Search" type="search">
           <button class="btn btn-secondary" type="button">
             <i class="bi bi-search"></i>
           </button>
@@ -182,7 +183,12 @@ export default {
 
   setup(){
     const productStore = useProductStore();
-    return{ productStore }
+    const searchQuery = productStore.searchQuery;
+    const updateSearch = (event) => {
+      productStore.updateSearchQuery(event.target.value);
+    };
+
+    return{ productStore, searchQuery, updateSearch }
   }
 }
 </script>

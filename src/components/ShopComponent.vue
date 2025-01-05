@@ -172,12 +172,25 @@ export default {
 
     // Gefilterde producten gebaseerd op geselecteerde categorieën
     const filteredProducts = computed(() => {
-      if (selectedCategories.value.length === 0) {
-        return productStore.products; // Geen filter, toon alle producten
+      let products = productStore.products;
+
+      // Filter op zoekterm
+      if (productStore.searchQuery) {
+        const query = productStore.searchQuery.toLowerCase();
+        products = products.filter((product) =>
+            product.title.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query)
+        );
       }
-      return productStore.products.filter((product) =>
-          selectedCategories.value.includes(product.category)
-      );
+
+      // Filter op categorieën
+      if (selectedCategories.value.length > 0) {
+        products = products.filter((product) =>
+            selectedCategories.value.includes(product.category)
+        );
+      }
+
+      return products;
     });
 
     onMounted(() => {
